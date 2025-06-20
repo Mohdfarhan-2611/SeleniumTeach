@@ -1,6 +1,7 @@
 package org.example.Actions;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -81,7 +82,6 @@ public class ActionsExample {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://testautomationpractice.blogspot.com/");
-
         WebElement source = driver.findElement(By.id("draggable"));
         WebElement target = driver.findElement(By.id("droppable"));
 
@@ -89,4 +89,68 @@ public class ActionsExample {
         act.dragAndDrop(source,target).build().perform();
 
     }
+
+    @Test
+    public void sliderExample() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.jqueryscript.net/demo/Price-Range-Slider-jQuery-UI/");
+        Actions act = new Actions(driver);
+
+        WebElement minSlider = driver.findElement(By.xpath("//span[@style='left: 0%;']"));
+        System.out.println("Default location of slider: " + minSlider.getLocation()); //59, 249
+        act.dragAndDropBy(minSlider, 100, 249).perform();
+        System.out.println("Location of slider after moving: " + minSlider.getLocation());
+
+        WebElement maxSlider = driver.findElement(By.xpath("//span[@style='left: 100%;']"));
+        System.out.println("Default location of slider: " + maxSlider.getLocation());
+        act.dragAndDropBy(maxSlider, -100, 249).perform();
+        System.out.println("Location of slider after moving: " + maxSlider.getLocation());
+
+    }
+
+
+    @Test
+    public void keyboardActionExample() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://text-compare.com/");
+        Actions act = new Actions(driver);
+
+        WebElement textBox1 = driver.findElement(By.xpath("//textarea[@name='text1']"));
+        textBox1.sendKeys("Welcome");
+
+        //Cntrol A
+        act.keyDown(Keys.CONTROL).sendKeys("A").keyUp(Keys.CONTROL).perform();
+
+
+        //Control c
+        act.keyDown(Keys.CONTROL).sendKeys("C").keyUp(Keys.CONTROL).perform();
+
+        //Tab
+        act.keyDown(Keys.TAB).keyUp(Keys.TAB).perform();
+
+
+        //Control V
+        act.keyDown(Keys.CONTROL).sendKeys("V").keyUp(Keys.CONTROL).perform();
+
+    }
+
+
+
+
+    @Test
+    public void keyboardActionExample2() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://demo.nopcommerce.com/");
+        Actions act = new Actions(driver);
+
+        WebElement registerElement = driver.findElement(By.xpath("//a[text()='Register']"));
+        //registerElement.click();
+
+        act.keyDown(Keys.CONTROL).click(registerElement).keyUp(Keys.CONTROL).perform();
+
+    }
+
 }
