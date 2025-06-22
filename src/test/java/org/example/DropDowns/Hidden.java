@@ -28,14 +28,16 @@ public class Hidden {
         WebElement loginButton = driver.findElement(By.xpath("//button[@type='submit']"));
         loginButton.click();
 
-
         WebElement dropDown = driver.findElement(By.xpath("//label[text()='Job Title']/parent::div/following-sibling::div/descendant::div[@class='oxd-select-text oxd-select-text--active']"));
         dropDown.click();
 
         WebElement dropDownOption = driver.findElement(By.xpath("//div[@role='option']/span[text()='manual testing']"));
         dropDownOption.click();
 
-
     }
+
+
+
+
 
 }
