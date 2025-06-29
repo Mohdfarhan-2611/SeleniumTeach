@@ -20,50 +20,48 @@ public class ExcelDataExample {
 
 
     @Test
-    public void enterTextExample() throws IOException {
+    public void enterTextExample() throws IOException, InvalidFormatException, InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://testautomationpractice.blogspot.com/");
 
-        File file = new File(System.getProperty("user.dir")+"/src/test/java/org/example/ExcelData/AutomationTestDataFromExcel.xlsx");
+        File file = new File(System.getProperty("user.dir")+"/src/test/java/org/example/ExcelData/SeleniumPracticeExcelData.xlsx");
         FileInputStream fis = new FileInputStream(file);
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workbook.getSheet("TestData");
 
-        Iterator<Row> rowIterator=sheet.iterator();
+        Iterator<Row> rowIterator= sheet.iterator();
         rowIterator.next();  //Skip my first header row
         Row row;
         Cell nameCell = null;
         Cell emailCell = null;
         Cell phoneCell = null;
 
-        while(rowIterator.hasNext()){
+        while (rowIterator.hasNext()) {
             row = rowIterator.next();
             nameCell = row.getCell(0);
             emailCell = row.getCell(1);
             phoneCell = row.getCell(2);
 
+
+            String name = nameCell.toString();
+            String email = emailCell.toString();
+            String phone = phoneCell.toString();
+
+            WebElement nameElement = driver.findElement(By.id("name"));
+            WebElement emailElement = driver.findElement(By.id("email"));
+            WebElement phoneElement = driver.findElement(By.id("phone"));
+
+            Thread.sleep(3000);
+            nameElement.sendKeys(name);
+            Thread.sleep(3000);
+            emailElement.sendKeys(email);
+            Thread.sleep(3000);
+            phoneElement.sendKeys(phone);
+
+
         }
-
-
-        String name= nameCell.toString();
-        String email = emailCell.toString();
-        String phone = phoneCell.toString();
-
-        System.out.println(name);
-        System.out.println(email);
-        System.out.println(phone);
-
-
-        WebElement nameElement = driver.findElement(By.id("name"));
-        WebElement emailElement = driver.findElement(By.id("email"));
-        WebElement phoneElement = driver.findElement(By.id("phone"));
-
-        nameElement.sendKeys(name);
-        emailElement.sendKeys(email);
-        phoneElement.sendKeys(phone);
-
         workbook.close();
         fis.close();
         driver.quit();

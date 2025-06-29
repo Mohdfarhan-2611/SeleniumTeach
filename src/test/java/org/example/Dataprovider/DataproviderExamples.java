@@ -49,8 +49,8 @@ public class DataproviderExamples {
     }
 
     //Dataprovider returns 3 things
-    //1 Object[]
-    //2 Object[][]
+    //1 Single Dimention Array
+    //2 Two Dimention Array
     //3 Iterator<Object[]>
 
 
