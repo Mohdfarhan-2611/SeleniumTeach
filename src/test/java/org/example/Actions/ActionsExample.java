@@ -48,7 +48,7 @@ public class ActionsExample {
         driver.get("https://swisnl.github.io/jQuery-contextMenu/demo.html");
         WebElement rightClickElement = driver.findElement(By.xpath("//span[text()='right click me']"));
         WebElement copyElement = driver.findElement(By.xpath("//span[text()='Copy']"));
-        Actions act = new Actions(driver);
+        Actions act = new Actions(driver);  //create an action
         Action myact = act.contextClick(rightClickElement).build();
         myact.perform();
         driver.switchTo().alert().accept();
